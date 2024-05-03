@@ -20,6 +20,7 @@ public class Spiny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckHoles();
         moveDirection(direction);
     }
     public void moveDirection(float direction)
@@ -29,7 +30,19 @@ public class Spiny : MonoBehaviour
         movement *= speed * Time.deltaTime;
         transform.Translate(movement);
     }
-    void OnCollisionEnter2D(Collision2D other){
+    void OnTriggerEnter2D(Collider2D other){
         direction *= -1;
+    }
+    void CheckHoles(){
+        Vector2 offset = Vector2.left * 0.5f;
+        if (direction == 1){
+            offset = Vector2.left * -0.5f;
+        }
+        Vector2 origin = transform.position ;
+        RaycastHit2D hit = Physics2D.Raycast(origin + offset, -Vector2.up);
+        if (hit.collider is null)
+        {
+            direction *= -1;
+        }
     }
 }

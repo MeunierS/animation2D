@@ -13,11 +13,10 @@ public class Spiny : MonoBehaviour
     [SerializeField] private Vector2 direction = Vector2.left;
     //* for collisionenter2d
     //[SerializeField] private float collisionThreshold = 0.1f;
-    Rigidbody2D rb;
+    
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         rend = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
@@ -46,7 +45,7 @@ public class Spiny : MonoBehaviour
             offset = Vector2.left * -0.5f;
         }
         Vector2 origin = transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(origin + offset, -Vector2.up, 2);
+        RaycastHit2D hit = Physics2D.Raycast(origin + offset, Vector2.down, 2);
         if (hit.collider is null)
         {
             direction *= -1;
